@@ -148,12 +148,10 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
     setState('off');
   }
 
-  function connectionsTo(peerId) {
-    return (peer && peer.connections[peerId]) || [];
-  }
-  function findOpenConnectionTo(peerId) {
-    return connectionsTo(peerId).find(c => c.open);
-  }
+  const connectionsTo = (peerId: string) => (peer && peer.connections[peerId]) || [];
+
+  const findOpenConnectionTo = (peerId: string) => connectionsTo(peerId).find(c => c.open);
+
   function closeOtherConnectionsTo(peerId) {
     const conns = connectionsTo(peerId);
     for (let i = 0; i < conns.length - 1; i++) conns[i].close();
